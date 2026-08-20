@@ -27,37 +27,36 @@
 
 ## 安装
 
-### 第 1 步：装 dbskill（提供 9 个依赖）
-
-本流水线依赖 dbskill 里的 9 个 skill：
-`dbs-goal` `dbs-benchmark` `dbs-content` `dbs-resonate` `dbs-spread` `dbs-content-risk-check` `dbs-xhs-title` `dbs-save` `dbs-restore`
-
-按 dbskill 官方说明安装。装好后在会话里输入 `/dbs` 能响应即为成功。
-
-### 第 2 步：装 viral-writer（第三方开源）
-
-站 06 的主。它不在本仓库里，请从原仓库安装：
-
-```
-https://github.com/nashsu/Viral_Writer_Skill
-```
-
-### 第 3 步：装本仓库的 5 个 skill
+复制这一行，粘到终端回车即可：
 
 ```bash
-git clone <本仓库地址> kriss
-cp -r kriss/skills/* ~/.claude/skills/
+git clone https://github.com/4f6ynb5wys-ops/kriss-xiaohs-skill.git && cd kriss-xiaohs-skill && ./install.sh
 ```
 
-装完确认这 5 个都在：
+脚本会依次装好三样东西，装完自动自检，把每一站缺什么列出来：
 
+1. **dbskill**（9 个依赖）—— 走官方 `npx -y skills add dontbesilent2025/dbskill -g --all`
+2. **viral-writer**（站 06）—— 从 [nashsu/Viral_Writer_Skill](https://github.com/nashsu/Viral_Writer_Skill) 拉取
+3. **本仓库的 5 个 skill**
+
+装完回到 Agent，输入 `/KRISS-xiaohs-skill` 就能跑。
+
+### 安全说明
+
+- 脚本**不会静默覆盖**你已有的 skill。同名目录会先备份成 `<名字>.bak-<时间戳>`，确认无误后自己删。
+- 全部内容都在本仓库里，`install.sh` 可以先读一遍再跑。
+
+### 可选参数
+
+```bash
+./install.sh --no-dbskill      # 已经装过 dbskill，跳过
+./install.sh --no-viral        # 跳过 viral-writer
+./install.sh --dir <路径>       # 装到别处（默认 ~/.claude/skills）
 ```
-KRISS-xiaohs-skill
-benchmark-dontbesilent
-benchmark-biandao
-xhs-keyword-strategy
-xhs-note-render
-```
+
+### 依赖没装全会怎样
+
+脚本最后会逐个自检 15 个 skill。缺哪个就报哪个，并告诉你对应哪一站跑不动——**缺的站是哑的，其余站照常工作**。补齐之后重跑一次脚本即可。
 
 ---
 
